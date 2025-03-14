@@ -7,6 +7,7 @@ from models.base import db
 from flask_migrate import Migrate, upgrade
 import random
 from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
+import psutil
 
 app = Flask(__name__,
             static_url_path='',
@@ -17,6 +18,20 @@ app.secret_key = 'supersecretkey'  # Para manter a sessão
 
 metrics = GunicornPrometheusMetrics(app)
 metrics.register_endpoint('/metrics')
+
+# Criação das métricas customizadas
+system_cpu_usage = Gauge('system_cpu_usage_percent', 'Uso de CPU do sistema em porcentagem')
+system_memory_usage = Gauge('system_memory_usage_percent', 'Uso de memória do sistema em porcentagem')
+system_disk_usage = Gauge('system_disk_usage_percent', 'Uso de disco do sistema em porcentagem')
+
+def update_system_metrics():
+    # Atualiza as métricas com os valores atuais
+    system_cpu_usage.set(psutil.cpu_percent())
+    system_memory_usage.set(psutil.virtual_memory().percent)
+    system_disk_usage.set(psutil.disk_usage('/').percent)
+
+# Registra a função para ser chamada a cada scrape do endpoint /metrics
+metrics.register_function(update_system_metrics)
 
 # Configuração do banco de dados
 db_host = os.getenv('POSTGRES_HOST', 'localhost')
