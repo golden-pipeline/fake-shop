@@ -1,13 +1,14 @@
 import uuid
-from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 import os
+import random
+import psutil
+from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from models.order import Order, OrderItem
 from models.product import Product
 from models.base import db
 from flask_migrate import Migrate, upgrade
-import random
+from prometheus_client import Gauge
 from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
-import psutil
 
 app = Flask(__name__,
             static_url_path='',
