@@ -31,9 +31,6 @@ def update_system_metrics():
     system_memory_usage.set(psutil.virtual_memory().percent)
     system_disk_usage.set(psutil.disk_usage('/').percent)
 
-# Registra a função para ser chamada a cada scrape do endpoint /metrics
-metrics.register_function(update_system_metrics)
-
 # Configuração do banco de dados
 db_host = os.getenv('POSTGRES_HOST', 'localhost')
 db_user = os.getenv('POSTGRES_USER', 'ncdferr')
