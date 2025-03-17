@@ -3,6 +3,9 @@ FROM python:3.11-alpine
 # Atualiza pacotes e instala dependências do sistema operacional
 RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev python3-dev cargo
 
+# Atualiza setuptools para corrigir a vulnerabilidade
+RUN pip install --no-cache-dir --upgrade setuptools
+
 # Expoe a porta para a aplicação
 EXPOSE 5000
 
