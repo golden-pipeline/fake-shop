@@ -1,4 +1,4 @@
-FROM python:3.11.0
+FROM python:3.11-alpine
 EXPOSE 5000
 ENV FLASK_APP=index
 COPY requirements.txt .
