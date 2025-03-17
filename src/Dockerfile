@@ -31,9 +31,5 @@ RUN chmod +x /app/entrypoint.sh
 ENV PROMETHEUS_MULTIPROC_DIR=/tmp/metrics
 RUN mkdir -p /tmp/metrics 
 
-# Define usuário não-root para rodar o container.
-RUN adduser -D appuser
-USER appuser
-
 # Comando de execução
 CMD ["sh", "/app/entrypoint.sh"]
