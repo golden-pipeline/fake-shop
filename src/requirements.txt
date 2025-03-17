@@ -15,7 +15,7 @@ MarkupSafe==3.0.1
 packaging==24.1
 prometheus_client==0.21.0
 prometheus_flask_exporter==0.23.1
-psycopg==3.2.3
+psycopg[c]
 smmap==5.0.1
 SQLAlchemy==2.0.35
 typing_extensions==4.12.2
