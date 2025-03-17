@@ -1,4 +1,6 @@
 FROM python:3.11-alpine
+# Atualiza pacotes e instala dependências do sistema operacional
+RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev python3-dev cargo
 EXPOSE 5000
 ENV FLASK_APP=index
 COPY requirements.txt .
